@@ -1,5 +1,5 @@
 import React from 'react';
-import P5 from './components/p5';
+import P5 from './components/P5';
 
 const Home = () => {
   return (
