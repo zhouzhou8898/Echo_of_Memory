@@ -4,30 +4,32 @@ import React, { useEffect, useState } from 'react';
 
 const P5 = () => {
   const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
 
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+      handleResize(); // 初始化尺寸
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   return (
-    <div className=''>
+    <div className='iframe-container'>
       <iframe
         src='https://openprocessing.org/sketch/2330198/embed/?plusEmbedHash=8e6ced0b&userID=457268&plusEmbedTitle=true&plusEmbedFullscreen=true&show=sketch'
-        width={dimensions.width}
-        height={dimensions.height}
+        style={{ width: '100%', height: '100%' }}
       ></iframe>
     </div>
   );
